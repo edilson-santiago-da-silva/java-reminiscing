@@ -17,7 +17,6 @@ public class Exercicio6ManipulacaoDeStringsVogais {
             }
         }
         System.out.println("Números de vogais: " + cont);
-
         sc.close();
     }
 }
