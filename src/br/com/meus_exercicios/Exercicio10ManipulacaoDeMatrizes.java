@@ -22,3 +22,5 @@ public class Exercicio10ManipulacaoDeMatrizes {
         sc.close();
     }
 }
+
+
