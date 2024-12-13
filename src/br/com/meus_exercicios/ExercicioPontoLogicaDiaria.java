@@ -1,39 +1,46 @@
 package br.com.meus_exercicios;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+//        this.id = id;
+//        this.workDay = workDay;
+//        this.userName = userName;
+//        this.entry = entry;
+//        this.entryLaunch = entryLaunch;
+//        this.exitLaunch = exitLaunch;
+//        this.exit = exit;
+//        this.user = user;
 
 public class ExercicioPontoLogicaDiaria {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        
-        LocalDateTime h = LocalDateTime.now();
-        LocalDateTime entrada = null, intS = null, intE = null, saida = null;
-        System.out.println("Digite a opção: \n" +
-                "1 - Entrada \n" +
-                "2 - Intervalo Saída \n" +
-                "3 - Intervalo Entrada \n" +
-                "4 - Saída \n");
-        
-        int op = sc.nextInt();
 
-        if (op == 1){
-           entrada = h;
-        }
-        if (op == 2){
-            intS = h;
-        }
-        if (op == 3){
-            intE = h;
-        }
-        if (op == 4){
-            saida = h;
-        }
-        System.out.println("Resumo do dia:\n" +
-                "Entrada às " + entrada +
-                "\nIntervalo Saída às " + intS +
-                "\nIntervalo Entrada às " + intE +
-                "\nSaída às " + saida);
+        String entry, exit;
+
+        DateTimeFormatter HHmmFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        System.out.println("DIGITAL POINT | DAY: " + LocalDateTime.now().format(dayFormatter) );
+        System.out.println("Digite o formato válido HH:mm (24 Horas)");
+
+        System.out.print("Entrada: ");
+        entry = sc.nextLine();
+        System.out.print("Saída: ");
+        exit = sc.nextLine();
+
+        LocalTime time1 = LocalTime.parse(entry, HHmmFormatter);
+        LocalTime time2 = LocalTime.parse(exit, HHmmFormatter);
+
+        //minutos trabalhados 500 com almoço.
+        Long dif = Duration.between(time1, time2).toMinutes();
+
+        System.out.println(dif);
+
     }
+
 }
