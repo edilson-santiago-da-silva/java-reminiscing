@@ -6,14 +6,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-//        this.id = id;
-//        this.workDay = workDay;
-//        this.userName = userName;
-//        this.entry = entry;
-//        this.entryLaunch = entryLaunch;
-//        this.exitLaunch = exitLaunch;
-//        this.exit = exit;
-//        this.user = user;
 
 public class ExercicioPontoLogicaDiaria {
     public static void main(String[] args) {
@@ -36,10 +28,18 @@ public class ExercicioPontoLogicaDiaria {
         LocalTime time1 = LocalTime.parse(entry, HHmmFormatter);
         LocalTime time2 = LocalTime.parse(exit, HHmmFormatter);
 
-        //minutos trabalhados 500 com almoço.
-        Long dif = Duration.between(time1, time2).toMinutes();
+        //minutos extras
+        long minTotal = Duration.between(time1, time2).toMinutes();
+        long minExtra = 0L;
 
-        System.out.println(dif);
+        if(minTotal > 500 ){
+            minExtra = minTotal - 500;
+        }
+        System.out.println("Minutos trabalhados : " + minTotal);
+        System.out.println("Minutos extras: " + minExtra);
+
+        //considerando atrasos
+        //if(entry > (entry + "00:10")){
 
     }
 
