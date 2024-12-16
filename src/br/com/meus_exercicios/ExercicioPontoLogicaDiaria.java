@@ -25,11 +25,11 @@ public class ExercicioPontoLogicaDiaria {
         System.out.print("Saída: ");
         exit = sc.nextLine();
 
-        LocalTime time1 = LocalTime.parse(entry, HHmmFormatter);
-        LocalTime time2 = LocalTime.parse(exit, HHmmFormatter);
+        LocalTime entryTime = LocalTime.parse(entry, HHmmFormatter);
+        LocalTime exitTime = LocalTime.parse(exit, HHmmFormatter);
 
         //minutos extras
-        long minTotal = Duration.between(time1, time2).toMinutes();
+        long minTotal = Duration.between(entryTime, exitTime).toMinutes();
         long minExtra = 0L;
 
         if(minTotal > 500 ){
@@ -38,9 +38,18 @@ public class ExercicioPontoLogicaDiaria {
         System.out.println("Minutos trabalhados : " + minTotal);
         System.out.println("Minutos extras: " + minExtra);
 
-        //considerando atrasos
-        //if(entry > (entry + "00:10")){
+        //tolerância para atrasos
+        LocalTime entryPattern = LocalTime.of(10,0);
+        int tolerance = 10;
 
+        boolean entryOk = isWhithinTolerance(entryPattern, entryTime, tolerance);
+        System.out.println("Entrada: " + (entryOk ? "No horário" : "Atrasado"));
+
+    }
+
+    public static boolean isWhithinTolerance(LocalTime entryPattern, LocalTime RealHour, int toleranceMin){
+        long dif = Duration.between(entryPattern, RealHour).toMinutes();
+        return dif >= 0 && dif <= toleranceMin;
     }
 
 }
