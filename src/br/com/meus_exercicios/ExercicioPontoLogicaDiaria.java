@@ -12,7 +12,11 @@ public class ExercicioPontoLogicaDiaria {
 
         Scanner sc = new Scanner(System.in);
 
-        String entry, exit;
+        String entry, exit, exitInterval, entryInterval;
+
+        LocalTime entryPattern = LocalTime.of(10,0);
+        int tolerance = 0;
+        int intervalPattern = 60;
 
         DateTimeFormatter HHmmFormatter = DateTimeFormatter.ofPattern("HH:mm");
         DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -22,11 +26,17 @@ public class ExercicioPontoLogicaDiaria {
 
         System.out.print("Entrada: ");
         entry = sc.nextLine();
+        System.out.print("Saída intervalo:");
+        exitInterval = sc.nextLine();
+        System.out.print("Entrada intervalo:");
+        entryInterval = sc.nextLine();
         System.out.print("Saída: ");
         exit = sc.nextLine();
 
         LocalTime entryTime = LocalTime.parse(entry, HHmmFormatter);
         LocalTime exitTime = LocalTime.parse(exit, HHmmFormatter);
+        LocalTime exitIntervalTime = LocalTime.parse(exitInterval, HHmmFormatter);
+        LocalTime entryIntervalTime = LocalTime.parse(entryInterval, HHmmFormatter);
 
         //minutos extras
         long minTotal = Duration.between(entryTime, exitTime).toMinutes();
@@ -39,17 +49,34 @@ public class ExercicioPontoLogicaDiaria {
         System.out.println("Minutos extras: " + minExtra);
 
         //tolerância para atrasos
-        LocalTime entryPattern = LocalTime.of(10,0);
-        int tolerance = 10;
 
-        boolean entryOk = isWhithinTolerance(entryPattern, entryTime, tolerance);
-        System.out.println("Entrada: " + (entryOk ? "No horário" : "Atrasado"));
+        long entryVerification = calculateEntry(entryPattern, entryTime, tolerance);
+        System.out.println("Atraso na entrada em min: " + entryVerification);
+        tolerance += (int) entryVerification;
 
+        long intervalVerification = calculateInterval(exitIntervalTime, entryIntervalTime, intervalPattern);
+        System.out.println("Atraso no intervalo em min: " + intervalVerification);
+        tolerance += (int) intervalVerification;
+
+        if (tolerance > 10){
+            System.out.println("Desconto em Min na hora extra: " + tolerance);
+        }
     }
 
-    public static boolean isWhithinTolerance(LocalTime entryPattern, LocalTime RealHour, int toleranceMin){
+    public static long calculateEntry(LocalTime entryPattern, LocalTime RealHour, int toleranceMin){
         long dif = Duration.between(entryPattern, RealHour).toMinutes();
-        return dif >= 0 && dif <= toleranceMin;
+        if (dif > toleranceMin){
+            return dif;
+        }
+        return 0;
+    }
+
+    public  static long calculateInterval(LocalTime exitInterval, LocalTime entryInterval, int intervalPattern){
+        long dif = Duration.between(exitInterval, entryInterval).toMinutes();
+        if(dif > intervalPattern){
+            return dif - intervalPattern;
+        }
+        return 0;
     }
 
 }
