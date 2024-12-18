@@ -38,18 +38,7 @@ public class ExercicioPontoLogicaDiaria {
         LocalTime exitIntervalTime = LocalTime.parse(exitInterval, HHmmFormatter);
         LocalTime entryIntervalTime = LocalTime.parse(entryInterval, HHmmFormatter);
 
-        //minutos extras
-        long minTotal = Duration.between(entryTime, exitTime).toMinutes();
-        long minExtra = 0L;
-
-        if(minTotal > 500 ){
-            minExtra = minTotal - 500;
-        }
-        System.out.println("Minutos trabalhados : " + minTotal);
-        System.out.println("Minutos extras: " + minExtra);
-
         //tolerância para atrasos
-
         long entryVerification = calculateEntry(entryPattern, entryTime, tolerance);
         System.out.println("Atraso na entrada em min: " + entryVerification);
         tolerance += (int) entryVerification;
@@ -61,6 +50,16 @@ public class ExercicioPontoLogicaDiaria {
         if (tolerance > 10){
             System.out.println("Desconto em Min na hora extra: " + tolerance);
         }
+
+        //minutos extras
+        long workload = 440L;
+        long extraHours = 0L;
+
+        long minWorked = calculateMinWorked(entryTime, exitIntervalTime, entryIntervalTime, exitTime);
+        if(minWorked > workload){
+            extraHours = minWorked - workload;
+        }
+        System.out.println("Minutos extras: " + extraHours);
     }
 
     public static long calculateEntry(LocalTime entryPattern, LocalTime RealHour, int toleranceMin){
@@ -71,12 +70,18 @@ public class ExercicioPontoLogicaDiaria {
         return 0;
     }
 
-    public  static long calculateInterval(LocalTime exitInterval, LocalTime entryInterval, int intervalPattern){
+    public static long calculateInterval(LocalTime exitInterval, LocalTime entryInterval, int intervalPattern){
         long dif = Duration.between(exitInterval, entryInterval).toMinutes();
         if(dif > intervalPattern){
             return dif - intervalPattern;
         }
         return 0;
+    }
+
+    public static long calculateMinWorked(LocalTime entry, LocalTime exitInterval, LocalTime entryInterval, LocalTime exit ){
+        long minTotal = Duration.between(entry, exit).toMinutes();
+        long interval = Duration.between(exitInterval, entryInterval).toMinutes();
+        return minTotal - interval;
     }
 
 }
