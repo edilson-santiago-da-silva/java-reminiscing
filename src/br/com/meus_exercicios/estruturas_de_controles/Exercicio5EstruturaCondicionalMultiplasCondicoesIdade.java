@@ -1,8 +1,8 @@
-package br.com.meus_exercicios;
+package br.com.meus_exercicios.estruturas_de_controles;
 
 import java.util.Scanner;
 
-public class Exercicio7EstruturaCondicionalMultiplasCondicoesIdade {
+public class Exercicio5EstruturaCondicionalMultiplasCondicoesIdade {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

@@ -1,4 +1,4 @@
-package br.com.meus_exercicios;
+package br.com.meus_exercicios.estruturas_de_controles;
 
 import java.util.Scanner;
 
