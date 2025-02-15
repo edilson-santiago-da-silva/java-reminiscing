@@ -1,0 +1,56 @@
+package br.com.meus_exercicios.estruturas_de_dados;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Exercicio2ListaDeTarefas {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        List<String> list = new ArrayList<>();
+
+        System.out.print("Digite a opção: [1] Adicionar, [2] Remover, [3] Listar, [4] Sair: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+        String tarefa;
+        int index;
+
+        while (op != 4){
+            if ( op == 1){
+                System.out.print("Digite a tarefa: ");
+                tarefa = sc.nextLine();
+                list.add(tarefa);
+            } else if (op == 2) {
+                if(list.isEmpty()){
+                    System.out.println("A lista está vazia!");
+                } else {
+                    for (int i = 0; i < list.size(); i++) {
+                        System.out.println(i + " - " + list.get(i));
+                    }
+                    System.out.print("Digite o número da tarefa para remover:");
+                    index = sc.nextInt();
+                    sc.nextLine();
+
+                    if (index >= 0 && index < list.size()){
+                        list.remove(index);
+                        System.out.println("Tarefa removida!");
+                    } else {
+                        System.out.println("Tarefa inexistente!");
+                        System.out.println(list.size());
+                    }
+                }
+            } else if (op == 3 ) {
+                for (int i = 0 ; i < list.size() ; i++) {
+                    System.out.println(i + " - " + list.get(i));
+                }
+            } else {
+                System.out.println("Opção inválida, tente novamente!");
+            }
+
+            System.out.print("Digite a opção: [1] Adicionar, [2] Remover, [3] Listar, [4] Sair: ");
+            op = sc.nextInt();
+            sc.nextLine();
+        }
+        System.out.println("Fim do programa!");
+    }
+}
