@@ -10,7 +10,7 @@ public class Exercicio2ListaDeTarefasRefactor {
         Scanner sc = new Scanner(System.in);
         List<String> list = new ArrayList<>();
 
-        int op = 0 ;
+        int op ;
         String tarefa;
         int index;
 
@@ -45,12 +45,16 @@ public class Exercicio2ListaDeTarefasRefactor {
                 }
             } else if (op == 3 ) {
                listarTarefas(list);
+
+            } else if (op == 4){
+                System.out.println("Finalizando o programa!");
+                sc.close();
+                break;
             } else {
                 System.out.println("Opção inválida, tente novamente!");
             }
-        } while (op != 4);
+        } while (true);
 
-        System.out.println("Fim do programa!");
     }
 
     public static void listarTarefas(List<String> list){
