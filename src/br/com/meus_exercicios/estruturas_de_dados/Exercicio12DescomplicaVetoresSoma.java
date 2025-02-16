@@ -1,4 +1,4 @@
-package br.com.meus_exercicios;
+package br.com.meus_exercicios.estruturas_de_dados;
 
 import java.util.Scanner;
 

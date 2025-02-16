@@ -1,4 +1,4 @@
-package br.com.meus_exercicios;
+package br.com.meus_exercicios.manipulacao_de_datahora;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
